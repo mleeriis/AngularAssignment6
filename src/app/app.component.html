@@ -1,0 +1,45 @@
+<div class="container">
+  <div class="row">
+    <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2">
+      <!-- Add a Form with the following Inputs (and Validators)
+           1) Mail address (should not be empty and should be an email address)
+           2) A Dropdown which allows the user to select from three different Subscriptions ("Basic", "Advanced", "Pro")
+              Set "Advanced" as Default
+           3) A Password field (should not be empty)
+           4) A Submit Button
+
+           Display a warning message if the Form is invalid AND was touched. Display a warning message below each input if it's invalid.
+
+           Upon submitting the form, you should simply print the Value of the Form to the Console.
+           Optionally, display it in your template.
+      -->
+      <form (ngSubmit)="onSubmit()" #form="ngForm">
+        <div class="form-group" [ngClass]="{'has-error': (email.invalid && email.touched)}">
+          <label>email
+            <input type="email" class="form-control" required email name="email" ngModel #email="ngModel"></label>
+          <span class="help-block" *ngIf="!email.valid && email.touched">Enter a valid email</span>
+        </div>
+        <div class="form-group">
+          <label for="package">Package Type</label>
+          <select class="form-control" id="package" [ngModel]="defaultPackage" name="package">
+            <option value="Basic">Basic</option>
+            <option value="Advanced" selected>Advanced</option>
+            <option value="Pro">Pro</option>
+          </select>
+        </div>
+        <div class="form-group" [ngClass]="{'has-error': (password.invalid && password.touched)}">
+          <label>Password
+            <input type="password" class="form-control" required name="password" ngModel #password="ngModel"></label>
+          <span class="help-block" *ngIf="!password.valid && password.touched">Password cannot be empty</span>
+        </div>
+        <p style="color: red" *ngIf="form.invalid && form.touched">Enter email and password before submitting</p>
+        <button type="submit" class="btn btn-primary" [disabled]="form.invalid">Submit</button>
+      </form>
+      <hr>
+      <h2>User Inputs</h2>
+      <p>Email: {{ formData.email }}</p>
+      <p>Package Type: {{formData.packageType}}</p>
+      <p>Password: {{formData.password}}</p>
+    </div>
+  </div>
+</div>
